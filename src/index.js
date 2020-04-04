@@ -8,7 +8,6 @@ const SETUPTOOLS_VERSION = '46.1.3';
 (async () => {
   try {
     const sudo = process.platform !== 'win32' ? 'sudo ' : '';
-    // setuptools==${SETUPTOOLS_VERSION}
     await exec(`${sudo}pip3 install setuptools==${SETUPTOOLS_VERSION}`);
     await exec(`${sudo}pip3 install shakespearelang` + (version ? `==${version}` : ''));
   } catch (e) {

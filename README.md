@@ -20,7 +20,7 @@ jobs:
     name: Shakespeare
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2.1.0
       - uses: fabasoad/setup-shakespeare-action@v1.0.0
         with:
           version: 0.3.1
