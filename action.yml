@@ -1,0 +1,14 @@
+---
+name: 'Setup Shakespeare'
+description: 'This GitHub action installs one of the Shakespeare Programming Language interpreters called shakespearelang.'
+# branding:
+#   icon: chevrons-right
+#   color: gray-dark
+inputs:
+  version:
+    description: 'Shakespearelang library version.'
+    required: false
+    default: null
+runs:
+  using: 'node12'
+  main: 'src/index.js'

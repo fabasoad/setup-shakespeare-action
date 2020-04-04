@@ -1,0 +1,20 @@
+{
+  "name": "setup-shakespeare-action",
+  "version": "1.0.0",
+  "description": "This GitHub action installs one of the Shakespeare Programming Language interpreters called shakespearelang.",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabasoad/setup-shakespeare-action.git"
+  },
+  "author": "Yevhen Fabizhevskyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fabasoad/setup-shakespeare-action/issues"
+  },
+  "homepage": "https://github.com/fabasoad/setup-shakespeare-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "@actions/exec": "^1.0.3"
+  }
+}
