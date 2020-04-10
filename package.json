@@ -7,6 +7,11 @@
     "type": "git",
     "url": "git+https://github.com/fabasoad/setup-shakespeare-action.git"
   },
+  "keywords": [
+    "actions",
+    "shakespeare",
+    "esoteric"
+  ],
   "author": "Yevhen Fabizhevskyi",
   "license": "MIT",
   "bugs": {
