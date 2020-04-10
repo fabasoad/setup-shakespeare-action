@@ -1,8 +1,8 @@
 {
   "name": "setup-shakespeare-action",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This GitHub action installs one of the Shakespeare Programming Language interpreters called shakespearelang.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fabasoad/setup-shakespeare-action.git"
@@ -12,9 +12,19 @@
   "bugs": {
     "url": "https://github.com/fabasoad/setup-shakespeare-action/issues"
   },
+  "scripts": {
+    "build": "ncc build -m src/index.js",
+    "test": "mocha __tests__"
+  },
   "homepage": "https://github.com/fabasoad/setup-shakespeare-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.3",
     "@actions/exec": "^1.0.3"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.1",
+    "chai": "^4.2.0",
+    "mocha": "^7.1.1",
+    "mocha-param": "^2.0.1"
   }
 }
