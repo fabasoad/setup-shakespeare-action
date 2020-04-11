@@ -1,5 +1,6 @@
 ---
 name: 'Setup Shakespeare'
+author: Yevhen Fabizhevskyi
 description: 'This GitHub action installs one of the Shakespeare Programming Language interpreters called shakespearelang.'
 branding:
   icon: italic
