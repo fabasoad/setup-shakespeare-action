@@ -1,25 +1,44 @@
 ---
 name: CI (latest)
 
-on: push
+on:
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
   unit_tests:
     name: Unit Tests
+    timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:      
       - uses: actions/checkout@v2.1.0
+        with:
+          ref: ${{ github.ref }}
       - uses: Adzz/jest_test_action@v1.0.0
         with:
           package-manager: npm
           command: test
   functional_tests:
     name: Functional Tests
-    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        os: ['ubuntu-latest','windows-latest','macos-latest']
+        version: ['0.0.1','0.1.0','0.2.0','0.3.0','0.3.1']
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.1.0
-      - uses: fabasoad/setup-shakespeare-action@v1.0.2
+      - uses: fabasoad/setup-shakespeare-action@${{ github.ref }}
         with:
-          version: 0.3.1
-      - name: Hello World
-        run: shakespeare run hello-world.spl | grep -q 'Hello World!' || exit 1;
+          version: ${{ matrix.version }}
+      - name: Validate command (non-Windows)
+        if: ${{ matrix.os != 'windows-latest' }}
+        run: |
+          [[ $(shakespeare run hello-world.spl) == "Hello World!" ]] || exit 1;
+      - name: Validate command (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          $Output = (shakespeare run hello-world.spl) | Out-String
+          &{If($Output -ne 'Hello World!') {exit 1}}
