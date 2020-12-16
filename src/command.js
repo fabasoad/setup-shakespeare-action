@@ -1,5 +1,4 @@
 class Command {
-
   constructor(version, platformRetriever = () => process.platform) {
     this.version = version;
     this.platform = platformRetriever();
@@ -9,7 +8,8 @@ class Command {
     return `${this._sudo()}pip3 install setuptools==${this.SETUPTOOLS_VERSION}`;
   }
   shakespearelang() {
-    return `${this._sudo()}pip3 install shakespearelang` + (this.version ? `==${this.version}` : '');
+    return `${this._sudo()}pip3 install shakespearelang` +
+      (this.version ? `==${this.version}` : '');
   }
   _sudo() {
     return this.platform !== 'win32' ? 'sudo ' : '';
