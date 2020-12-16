@@ -6,7 +6,7 @@ const version = core.getInput('version');
 
 (async () => {
   try {
-    const command = new Command(version);;
+    const command = new Command(version); ;
     await exec(command.setuptools());
     await exec(command.shakespearelang());
   } catch (e) {

@@ -1,6 +1,6 @@
 {
   "name": "setup-shakespeare-action",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This GitHub action installs one of the Shakespeare Programming Language interpreters called shakespearelang.",
   "main": "dist/index.js",
   "repository": {
@@ -19,17 +19,35 @@
   },
   "scripts": {
     "build": "ncc build -m src/index.js",
-    "test": "mocha __tests__"
+    "lint": "eslint src __tests__",
+    "security:auth": "snyk auth",
+    "security:test": "snyk test",
+    "test": "nyc mocha __tests__",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "homepage": "https://github.com/fabasoad/setup-shakespeare-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/exec": "^1.0.4"
+    "@actions/core": "1.2.6",
+    "@actions/exec": "1.0.4"
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.22.3",
-    "chai": "^4.2.0",
-    "mocha": "^8.1.3",
-    "mocha-param": "^2.0.1"
+    "@vercel/ncc": "0.25.1",
+    "chai": "4.2.0",
+    "eslint": "7.15.0",
+    "eslint-config-google": "0.14.0",
+    "git-branch-is": "4.0.0",
+    "husky": "4.3.6",
+    "mocha": "8.2.1",
+    "mocha-param": "2.0.1",
+    "nyc": "15.1.0",
+    "snyk": "1.437.1"
+  },
+  "snyk": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "git-branch-is --not main && yarn run build && git add dist/index.js",
+      "pre-push": "yarn run lint && yarn test"
+    }
   }
 }

@@ -1,0 +1,22 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "fixAll.eslint": true,
+    "source.organizeImports": true,
+  },
+  "cSpell.words": [
+    "UNSECURE",
+    "freebsd",
+    "issuehunt",
+    "lcov",
+    "liberapay",
+    "linebreak",
+    "openbsd",
+    "readonly",
+    "setuptools",
+    "shakespearelang",
+    "sunos",
+    "vercel"
+  ],
+  "editor.rulers": [ 80 ]
+}
