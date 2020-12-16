@@ -48,7 +48,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: fabasoad/setup-shakespeare-action@v1.0.3
+      - uses: fabasoad/setup-shakespeare-action@main
         with:
           version: ${{ matrix.version }}
       - name: Validate command (non-Windows)
