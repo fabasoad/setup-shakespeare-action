@@ -11,10 +11,12 @@
     "lcov",
     "liberapay",
     "linebreak",
+    "markdownlint",
     "openbsd",
     "readonly",
     "setuptools",
     "shakespearelang",
+    "simbo",
     "sunos",
     "vercel"
   ],
