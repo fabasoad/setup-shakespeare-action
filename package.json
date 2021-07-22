@@ -1,6 +1,6 @@
 {
   "name": "setup-shakespeare-action",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "This GitHub action installs one of the Shakespeare Programming Language interpreters called shakespearelang.",
   "main": "dist/index.js",
   "repository": {
