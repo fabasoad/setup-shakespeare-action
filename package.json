@@ -1,6 +1,6 @@
 {
   "name": "setup-shakespeare-action",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "This GitHub action installs one of the Shakespeare Programming Language interpreters called shakespearelang.",
   "main": "dist/index.js",
   "repository": {
@@ -19,10 +19,8 @@
   },
   "scripts": {
     "build": "ncc build -m src/index.js",
-    "lint:md": "markdownlint --config .markdownlint.yml '**/*.md'",
-    "lint:es": "eslint src __tests__",
-    "lint": "yarn run lint:md && yarn run lint:es",
-    "postinstall": "yarn husky install",
+    "lint": "eslint src __tests__",
+    "postinstall": "pre-commit install --hook-type pre-commit && pre-commit install --hook-type pre-push",
     "test": "nyc mocha __tests__"
   },
   "homepage": "https://github.com/fabasoad/setup-shakespeare-action#readme",
@@ -37,7 +35,6 @@
     "eslint-config-google": "0.14.0",
     "git-branch-is": "4.0.0",
     "husky": "8.0.1",
-    "markdownlint-cli": "0.31.1",
     "mocha": "10.0.0",
     "mocha-param": "2.0.1",
     "nyc": "15.1.0"
