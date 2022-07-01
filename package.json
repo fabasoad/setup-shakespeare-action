@@ -23,29 +23,23 @@
     "lint:es": "eslint src __tests__",
     "lint": "yarn run lint:md && yarn run lint:es",
     "postinstall": "yarn husky install",
-    "prepare": "yarn run snyk-protect",
-    "security:auth": "snyk auth",
-    "security:test": "snyk test",
-    "snyk-protect": "snyk protect",
     "test": "nyc mocha __tests__"
   },
   "homepage": "https://github.com/fabasoad/setup-shakespeare-action#readme",
   "dependencies": {
-    "@actions/core": "1.6.0",
-    "@actions/exec": "1.1.0"
+    "@actions/core": "1.9.0",
+    "@actions/exec": "1.1.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "0.33.3",
+    "@vercel/ncc": "0.34.0",
     "chai": "4.3.6",
-    "eslint": "8.9.0",
+    "eslint": "8.18.0",
     "eslint-config-google": "0.14.0",
     "git-branch-is": "4.0.0",
-    "husky": "7.0.4",
+    "husky": "8.0.1",
     "markdownlint-cli": "0.31.1",
-    "mocha": "9.2.0",
+    "mocha": "10.0.0",
     "mocha-param": "2.0.1",
-    "nyc": "15.1.0",
-    "snyk": "1.852.0"
-  },
-  "snyk": true
+    "nyc": "15.1.0"
+  }
 }
