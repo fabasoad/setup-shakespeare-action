@@ -14,7 +14,9 @@ runs:
   using: 'composite'
   steps:
     - name: Install tools
-      run: pip install setuptools
+      env:
+        SETUPTOOLS_VERSION: 58.1.0
+      run: pip install setuptools==$SETUPTOOLS_VERSION
       shell: bash
     - name: Install Shakespeare
       run: pip install shakespearelang==${{ inputs.version }}
