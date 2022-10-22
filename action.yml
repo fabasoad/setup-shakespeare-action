@@ -9,7 +9,15 @@ inputs:
   version:
     description: 'Shakespearelang library version.'
     required: false
-    default: null
+    default: '0.3.1'
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: 'composite'
+  steps:
+    - name: Install tools
+      env:
+        SETUPTOOLS_VERSION: 58.1.0
+      run: pip install setuptools==$SETUPTOOLS_VERSION
+      shell: bash
+    - name: Install Shakespeare
+      run: pip install shakespearelang==${{ inputs.version }}
+      shell: bash
