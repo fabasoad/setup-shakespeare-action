@@ -7,13 +7,16 @@
 This action installs one of the Shakespeare Programming Language interpreters
 called [shakespearelang](https://pypi.org/project/shakespearelang/).
 
+## Prerequisites
+
+The following tools have to be installed for successful work of this GitHub action:
+[pip](https://pypi.org/project/pip).
+
 ## Inputs
 
-<!-- markdownlint-disable MD013 -->
-| Name    | Required | Description                                                                                         | Default | Possible values |
-|---------|----------|-----------------------------------------------------------------------------------------------------|---------|-----------------|
-| version | No       | Shakespearelang library version that can be found [here](https://pypi.org/project/shakespearelang/) | `0.3.1` | &lt;String&gt;  |
-<!-- markdownlint-enable MD013 -->
+| Name    | Required | Description                                                                                        | Default | Possible values |
+|---------|----------|----------------------------------------------------------------------------------------------------|---------|-----------------|
+| version | No       | Shakespearelang library version that can be found [here](https://pypi.org/project/shakespearelang) | `0.3.1` | &lt;String&gt;  |
 
 ## Example usage
 
@@ -33,7 +36,7 @@ jobs:
       - uses: fabasoad/setup-shakespeare-action@main
       - name: Hello World
         run: shakespeare run hello-world.spl
-
+        shell: sh
 ```
 
 ### Result
