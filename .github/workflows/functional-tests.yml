@@ -5,11 +5,10 @@ on:
   push:
     branches:
       - 'main'
-      - 'fix-*'
-      - 'feature-*'
+  pull_request:
 
 jobs:
-  functional_tests:
+  run-script:
     name: Run script
     timeout-minutes: 5
     strategy:
@@ -26,12 +25,14 @@ jobs:
       - uses: ./
         with:
           version: ${{ matrix.version }}
-      - name: Validate command (non-Windows)
-        if: ${{ matrix.os != 'windows-latest' }}
+      - name: Validate command (Linux, macOS)
+        if: ${{ runner.os != 'Windows' }}
         run: |
           [[ $(shakespeare run hello-world.spl) == "Hello World!" ]] || exit 1;
+        shell: bash
       - name: Validate command (Windows)
-        if: ${{ matrix.os == 'windows-latest' }}
+        if: ${{ runner.os == 'Windows' }}
         run: |
           $Output = (shakespeare run hello-world.spl) | Out-String
           &{If($Output.Substring(0,12) -ne 'Hello World!') {exit 1}}
+        shell: pwsh

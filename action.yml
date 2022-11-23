@@ -13,11 +13,19 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Collect info
+      id: info
+      run: |
+        SHAKESPEARE_INSTALLED=$(if command -v shakespeare >/dev/null 2>&1; then echo true; else echo false; fi)
+        echo "SHAKESPEARE_INSTALLED=$SHAKESPEARE_INSTALLED" >> $GITHUB_OUTPUT
+      shell: sh
     - name: Install tools
+      if: ${{ steps.info.outputs.SHAKESPEARE_INSTALLED == 'false' }}
       env:
         SETUPTOOLS_VERSION: 58.1.0
       run: pip install setuptools==$SETUPTOOLS_VERSION
-      shell: bash
+      shell: sh
     - name: Install Shakespeare
+      if: ${{ steps.info.outputs.SHAKESPEARE_INSTALLED == 'false' }}
       run: pip install shakespearelang==${{ inputs.version }}
-      shell: bash
+      shell: sh
