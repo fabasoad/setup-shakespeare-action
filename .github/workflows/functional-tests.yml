@@ -13,10 +13,10 @@ jobs:
     timeout-minutes: 5
     strategy:
       matrix:
-        os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
+        os: ['ubuntu', 'windows', 'macos']
         version: ['0.3.0', '0.3.1']
       fail-fast: false
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
