@@ -11,7 +11,9 @@ called [shakespearelang](https://pypi.org/project/shakespearelang/).
 ## Prerequisites
 
 The following tools have to be installed for successful work of this GitHub action:
-[pip](https://pypi.org/project/pip).
+
+- [pip](https://pypi.org/project/pip)
+- [python](https://www.python.org/) <= 3.9
 
 ## Inputs
 
@@ -36,6 +38,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
       - uses: fabasoad/setup-shakespeare-action@main
       - name: Hello World
         run: shakespeare run hello-world.spl
