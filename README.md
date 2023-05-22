@@ -15,9 +15,11 @@ The following tools have to be installed for successful work of this GitHub acti
 
 ## Inputs
 
+<!-- prettier-ignore-start -->
 | Name    | Required | Description                                                                                        | Default | Possible values |
-| ------- | -------- | -------------------------------------------------------------------------------------------------- | ------- | --------------- |
+|---------|----------|----------------------------------------------------------------------------------------------------|---------|-----------------|
 | version | No       | Shakespearelang library version that can be found [here](https://pypi.org/project/shakespearelang) | `0.3.1` | &lt;String&gt;  |
+<!-- prettier-ignore-end -->
 
 ## Example usage
 
