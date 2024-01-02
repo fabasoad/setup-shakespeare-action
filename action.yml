@@ -1,7 +1,9 @@
 ---
 name: "Setup Shakespeare"
 author: Yevhen Fabizhevskyi
-description: "This GitHub action installs one of the Shakespeare Programming Language interpreters called shakespearelang."
+description: |
+  This GitHub action installs one of the Shakespeare programming language
+  interpreters called shakespearelang.
 branding:
   icon: italic
   color: yellow
@@ -22,10 +24,12 @@ runs:
     - name: Install tools
       if: ${{ steps.info.outputs.SHAKESPEARE_INSTALLED == 'false' }}
       env:
-        SETUPTOOLS_VERSION: "67.8.0"
+        SETUPTOOLS_VERSION: "69.0.3"
       run: pip install setuptools==$SETUPTOOLS_VERSION
       shell: sh
     - name: Install Shakespeare
       if: ${{ steps.info.outputs.SHAKESPEARE_INSTALLED == 'false' }}
-      run: pip install shakespearelang==${{ inputs.version }}
+      env:
+        INPUT_VERSION: "${{ inputs.version }}"
+      run: pip install shakespearelang==${INPUT_VERSION}
       shell: sh

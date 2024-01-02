@@ -5,7 +5,7 @@
 ![Functional Tests](https://github.com/fabasoad/setup-shakespeare-action/workflows/Functional%20Tests/badge.svg)
 ![pre-commit](https://github.com/fabasoad/setup-shakespeare-action/actions/workflows/pre-commit.yml/badge.svg)
 
-This action installs one of the Shakespeare Programming Language interpreters
+This action installs one of the Shakespeare programming language interpreters
 called [shakespearelang](https://pypi.org/project/shakespearelang/).
 
 ## Prerequisites
