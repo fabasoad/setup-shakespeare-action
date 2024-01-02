@@ -4,7 +4,7 @@ name: Functional Tests
 on: # yamllint disable-line rule:truthy
   push:
     branches:
-      - "main"
+      - main
   pull_request:
 
 jobs:
@@ -18,11 +18,14 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.os }}-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
+      - name: Setup python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.9"
-      - uses: ./
+      - name: Setup shakespeare
+        uses: ./
         with:
           version: ${{ matrix.version }}
       - name: Validate command (Linux, macOS)

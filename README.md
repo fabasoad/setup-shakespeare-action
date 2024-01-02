@@ -2,10 +2,10 @@
 
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 ![Release](https://img.shields.io/github/v/release/fabasoad/setup-shakespeare-action?include_prereleases)
-![Functional Tests](https://github.com/fabasoad/setup-shakespeare-action/workflows/Functional%20Tests/badge.svg)
-![pre-commit](https://github.com/fabasoad/setup-shakespeare-action/actions/workflows/pre-commit.yml/badge.svg)
+![functional-tests](https://github.com/fabasoad/setup-shakespeare-action/actions/workflows/functional-tests.yml/badge.svg)
+![linting](https://github.com/fabasoad/setup-shakespeare-action/actions/workflows/linting.yml/badge.svg)
 
-This action installs one of the Shakespeare Programming Language interpreters
+This action installs one of the Shakespeare programming language interpreters
 called [shakespearelang](https://pypi.org/project/shakespearelang/).
 
 ## Prerequisites
