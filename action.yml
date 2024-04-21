@@ -24,7 +24,7 @@ runs:
     - name: Install tools
       if: ${{ steps.info.outputs.SHAKESPEARE_INSTALLED == 'false' }}
       env:
-        SETUPTOOLS_VERSION: "69.0.3"
+        SETUPTOOLS_VERSION: "69.5.1"
       run: pip install setuptools==$SETUPTOOLS_VERSION
       shell: sh
     - name: Install Shakespeare

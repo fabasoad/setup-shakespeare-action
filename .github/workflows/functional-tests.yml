@@ -2,10 +2,18 @@
 name: Functional Tests
 
 on: # yamllint disable-line rule:truthy
+  pull_request:
+    paths:
+      - "action.yml"
+      - "hello-world.spl"
+      - ".github/workflows/functional-tests.yml"
   push:
     branches:
-      - main
-  pull_request:
+      - "main"
+
+defaults:
+  run:
+    shell: sh
 
 jobs:
   run-script:
@@ -27,12 +35,11 @@ jobs:
       - name: Setup shakespeare
         uses: ./
         with:
-          version: ${{ matrix.version }}
+          version: "${{ matrix.version }}"
       - name: Validate command (Linux, macOS)
         if: ${{ runner.os != 'Windows' }}
         run: |
-          [[ $(shakespeare run hello-world.spl) == "Hello World!" ]] || exit 1;
-        shell: bash
+          [ "$(shakespeare run hello-world.spl)" = "Hello World!" ] || exit 1
       - name: Validate command (Windows)
         if: ${{ runner.os == 'Windows' }}
         run: |
