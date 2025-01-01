@@ -2,40 +2,74 @@
 name: Functional Tests
 
 on: # yamllint disable-line rule:truthy
-  pull_request:
-    paths:
-      - "action.yml"
-      - "hello-world.spl"
-      - ".github/workflows/functional-tests.yml"
   push:
     branches:
-      - "main"
+      - main
+  pull_request:
+    paths:
+      - .github/workflows/functional-tests.yml
+      - src/**
+      - action.yml
+      - hello-world.spl
+  schedule:
+    # Every Friday at 09:00 JST
+    - cron: "0 0 * * 5"
+  workflow_dispatch: {}
 
 defaults:
   run:
     shell: sh
 
 jobs:
+  get-versions:
+    name: Get 3 latest versions
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      versions: ${{ steps.prepare-list.outputs.versions }}
+    steps:
+      - name: Prepare list
+        id: prepare-list
+        env:
+          RELEASES_AMOUNT: "3"
+          TARGET_PIP_PACKAGE: "shakespearelang"
+        run: |
+          versions=$(curl -s "https://pypi.org/pypi/${TARGET_PIP_PACKAGE}/json" \
+            | jq -r --arg n "${RELEASES_AMOUNT}" '.releases | keys | .[-($n | tonumber):] | . += ["latest"]')
+          echo "versions=${versions}" >> "$GITHUB_OUTPUT"
   run-script:
     name: Run script
+    needs: [get-versions]
+    runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 5
     strategy:
+      fail-fast: false
       matrix:
         os: ["ubuntu", "windows", "macos"]
-        version: ["0.3.0", "0.3.1"]
-      fail-fast: false
-    runs-on: ${{ matrix.os }}-latest
+        version: ${{ fromJSON(needs.get-versions.outputs.versions) }}
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
       - name: Setup python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: "3.12"
       - name: Setup shakespeare
+        id: setup-shakespeare
         uses: ./
         with:
           version: "${{ matrix.version }}"
+      - name: Test action completion
+        run: |
+          test_equal() {
+            if [ "${2}" != "${3}" ]; then
+              echo "::error title=${1}::Expected: ${3}. Actual: ${2}."
+              exit 1
+            fi
+          }
+          test_equal "shakespeare should be installed" \
+            "${{ steps.setup-shakespeare.outputs.installed }}" \
+            "true"
       - name: Validate command (Linux, macOS)
         if: ${{ runner.os != 'Windows' }}
         run: |
@@ -46,3 +80,36 @@ jobs:
           $Output = (shakespeare run hello-world.spl) | Out-String
           &{If($Output.Substring(0,12) -ne 'Hello World!') {exit 1}}
         shell: pwsh
+  test-force:
+    name: Test force
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        force: ["true", "false"]
+    steps:
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
+      - name: Setup shakespeare 1
+        id: setup-shakespeare-1
+        uses: ./
+      - name: Setup shakespeare 2
+        id: setup-shakespeare-2
+        uses: ./
+        with:
+          force: ${{ matrix.force }}
+      - name: Test action completion
+        run: |
+          test_equal() {
+            if [ "${2}" != "${3}" ]; then
+              echo "::error title=${1}::Expected: ${3}. Actual: ${2}."
+              exit 1
+            fi
+          }
+          test_equal "Wrong \"installed\" output from setup-shakespeare-1" \
+            "${{ steps.setup-shakespeare-1.outputs.installed }}" \
+            "true"
+          test_equal "Wrong \"installed\" output from setup-shakespeare-2" \
+            "${{ steps.setup-shakespeare-2.outputs.installed }}" \
+            "${{ matrix.force }}"
