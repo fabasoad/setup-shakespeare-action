@@ -53,7 +53,7 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.9"
       - name: Setup shakespeare
         id: setup-shakespeare
         uses: ./
@@ -70,16 +70,9 @@ jobs:
           test_equal "shakespeare should be installed" \
             "${{ steps.setup-shakespeare.outputs.installed }}" \
             "true"
-      - name: Validate command (Linux, macOS)
-        if: ${{ runner.os != 'Windows' }}
+      - name: Validate command
         run: |
           [ "$(shakespeare run hello-world.spl)" = "Hello World!" ] || exit 1
-      - name: Validate command (Windows)
-        if: ${{ runner.os == 'Windows' }}
-        run: |
-          $Output = (shakespeare run hello-world.spl) | Out-String
-          &{If($Output.Substring(0,12) -ne 'Hello World!') {exit 1}}
-        shell: pwsh
   test-force:
     name: Test force
     runs-on: ubuntu-latest

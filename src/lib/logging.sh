@@ -5,7 +5,7 @@
 # 1. (Required) Log level. Options: debug, info, warning, error.
 # 2. (Required) Message.
 log() {
-  header="setup-graudit-action"
+  header="setup-shakespeare-action"
   printf "[%s] [%s] %s %s\n" "${1}" "${header}" "$(date +'%Y-%m-%d %T')" "${2}" 1>&2
 }
 
