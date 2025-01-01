@@ -31,7 +31,7 @@ The following tools have to be installed for successful work of this GitHub acti
 - uses: fabasoad/setup-shakespeare-action@v1
   with:
     # (Optional) shakespeare version. Defaults to the latest version.
-    version: "3.7"
+    version: "1.0.0"
     # (Optional) If "false" skips installation if shakespeare is already installed.
     # If "true" installs shakespeare in any case. Defaults to "false".
     force: "false"
@@ -40,9 +40,9 @@ The following tools have to be installed for successful work of this GitHub acti
 ## Outputs
 
 <!-- prettier-ignore-start -->
-| Name      | Description                          | Example |
-|-----------|--------------------------------------|---------|
-| installed | Whether graudit was installed or not | `true`  |
+| Name      | Description                              | Example |
+|-----------|------------------------------------------|---------|
+| installed | Whether shakespeare was installed or not | `true`  |
 <!-- prettier-ignore-end -->
 
 ## Example usage
