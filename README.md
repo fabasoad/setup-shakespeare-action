@@ -8,6 +8,16 @@
 This action installs one of the Shakespeare programming language interpreters
 called [shakespearelang](https://pypi.org/project/shakespearelang/).
 
+## Supported OS
+
+<!-- prettier-ignore-start -->
+| OS      |                    |
+|---------|--------------------|
+| Windows | :white_check_mark: |
+| Linux   | :white_check_mark: |
+| macOS   | :white_check_mark: |
+<!-- prettier-ignore-end -->
+
 ## Prerequisites
 
 The following tools have to be installed for successful work of this GitHub action:
@@ -17,10 +27,22 @@ The following tools have to be installed for successful work of this GitHub acti
 
 ## Inputs
 
+```yaml
+- uses: fabasoad/setup-shakespeare-action@v1
+  with:
+    # (Optional) shakespeare version. Defaults to the latest version.
+    version: "1.0.0"
+    # (Optional) If "false" skips installation if shakespeare is already installed.
+    # If "true" installs shakespeare in any case. Defaults to "false".
+    force: "false"
+```
+
+## Outputs
+
 <!-- prettier-ignore-start -->
-| Name    | Required | Description                                                                                        | Default | Possible values |
-|---------|----------|----------------------------------------------------------------------------------------------------|---------|-----------------|
-| version | No       | Shakespearelang library version that can be found [here](https://pypi.org/project/shakespearelang) | `0.3.1` | &lt;String&gt;  |
+| Name      | Description                              | Example |
+|-----------|------------------------------------------|---------|
+| installed | Whether shakespeare was installed or not | `true`  |
 <!-- prettier-ignore-end -->
 
 ## Example usage
@@ -37,11 +59,11 @@ jobs:
     name: Shakespeare
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.9"
-      - uses: fabasoad/setup-shakespeare-action@main
+      - uses: fabasoad/setup-shakespeare-action@v1
       - name: Hello World
         run: shakespeare run hello-world.spl
         shell: sh

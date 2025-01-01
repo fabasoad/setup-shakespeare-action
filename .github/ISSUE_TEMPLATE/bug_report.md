@@ -30,7 +30,7 @@ If applicable, add screenshots to help explain your problem.
 #### Technical information (please complete the following information)
 
 - OS: [e.g. Windows 10 Enterprise v.1909 (OS Build 18363.720)]
-- `setup-shakespeare-action` version [e.g. 1.0.2]
+- `setup-shakespeare-action` version [e.g. 1.2.0]
 
 #### Additional context
 
