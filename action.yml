@@ -57,5 +57,5 @@ runs:
       shell: sh
 
     - name: Print version
-      run: shakespeare --version
+      run: shakespeare --help
       shell: sh

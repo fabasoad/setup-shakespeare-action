@@ -35,7 +35,7 @@ jobs:
           TARGET_PIP_PACKAGE: "shakespearelang"
         run: |
           versions=$(curl -s "https://pypi.org/pypi/${TARGET_PIP_PACKAGE}/json" \
-            | jq -r --arg n "${RELEASES_AMOUNT}" '.releases | keys | .[-($n | tonumber):] | . += ["latest"]')
+            | jq -c -r --arg n "${RELEASES_AMOUNT}" '.releases | keys | .[-($n | tonumber):] | . += ["latest"]')
           echo "versions=${versions}" >> "$GITHUB_OUTPUT"
   run-script:
     name: Run script
