@@ -51,11 +51,8 @@ runs:
 
     - name: Install Shakespeare
       if: ${{ steps.info.outputs.bin-installed == 'false' }}
+      id: install-shakespeare
       env:
         VERSION: "${{ inputs.version == 'latest' && steps.latest-release.outputs.version || inputs.version }}"
       run: pip install shakespearelang==${VERSION}
-      shell: sh
-
-    - name: Print version
-      run: shakespeare --help
       shell: sh
