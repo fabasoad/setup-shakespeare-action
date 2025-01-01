@@ -33,11 +33,12 @@ runs:
       shell: sh
       working-directory: "${{ github.action_path }}/src"
 
-    - name: Install tools
+    - name: Install dependencies
       if: ${{ steps.info.outputs.bin-installed == 'false' }}
       env:
         SETUPTOOLS_VERSION: "75.6.0"
-      run: pip install setuptools==$SETUPTOOLS_VERSION
+      run: |
+        pip install setuptools==$SETUPTOOLS_VERSION ${{ runner.os == 'Windows' && 'pyreadline3' || ''}}
       shell: sh
 
     - name: Get latest release
