@@ -30,7 +30,7 @@ check_enum() {
 #
 # Usage examples:
 # check_semver "my-valid-semver-1" "1.2.3"
-# check_semver "my-valid-semver-1" "1.2.dev0"
+# check_semver "my-valid-semver-1" "1.0.0rc1"
 # check_semver "my-valid-semver-3" "latest"
 # check_semver "my-invalid-semver" "1.2.3-rc1"
 check_semver() {
