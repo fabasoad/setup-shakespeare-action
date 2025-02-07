@@ -20,10 +20,7 @@ called [shakespearelang](https://pypi.org/project/shakespearelang/).
 
 ## Prerequisites
 
-The following tools have to be installed for successful work of this GitHub action:
-
-- [pip](https://pypi.org/project/pip)
-- [python](https://www.python.org/) <= 3.9
+None.
 
 ## Inputs
 
@@ -35,6 +32,10 @@ The following tools have to be installed for successful work of this GitHub acti
     # (Optional) If "false" skips installation if shakespeare is already installed.
     # If "true" installs shakespeare in any case. Defaults to "false".
     force: "false"
+    # (Optional) GitHub token that is used to send requests to GitHub API such
+    # as getting available python versions. Defaults to the token provided by
+    # GitHub Actions environment.
+    github-token: "${{ github.token }}"
 ```
 
 ## Outputs
@@ -50,23 +51,10 @@ The following tools have to be installed for successful work of this GitHub acti
 ### Workflow configuration
 
 ```yaml
-name: Test
-
-on: push
-
-jobs:
-  build:
-    name: Shakespeare
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.9"
-      - uses: fabasoad/setup-shakespeare-action@v1
-      - name: Hello World
-        run: shakespeare run hello-world.spl
-        shell: sh
+steps:
+  - uses: actions/checkout@v4
+  - uses: fabasoad/setup-shakespeare-action@v1
+  - run: shakespeare run hello-world.spl
 ```
 
 ### Result
