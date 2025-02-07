@@ -9,7 +9,13 @@ LIB_DIR_PATH="${SRC_DIR_PATH}/lib"
 main() {
   input_force="${1}"
 
-  python_installed=$(if command -v python >/dev/null 2>&1; then echo true; else echo false; fi)
+  python_installed="false"
+  if command -v python >/dev/null 2>&1; then
+    minor=$(python --version | cut -d '.' -f 2)
+    if [ "${minor}" -le 9 ]; then
+      python_installed="true"
+    fi
+  fi
   echo "python-installed=${python_installed}" >> "$GITHUB_OUTPUT"
 
   bin_installed="false"
