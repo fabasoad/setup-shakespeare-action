@@ -63,3 +63,7 @@ steps:
 Run shakespeare run hello-world.spl
 Hello World!
 ```
+
+## Contributions
+
+![Alt](https://repobeats.axiom.co/api/embed/888da4b485e965e05dd98cb61bb3810fc3f0ef0d.svg "Repobeats analytics image")
