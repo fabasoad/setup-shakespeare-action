@@ -49,7 +49,7 @@ jobs:
         version: ${{ fromJSON(needs.get-versions.outputs.versions) }}
     steps:
       - name: Checkout ${{ github.repository }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup shakespeare
         id: setup-shakespeare
         uses: ./
@@ -79,7 +79,7 @@ jobs:
         force: ["true", "false"]
     steps:
       - name: Checkout ${{ github.repository }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup shakespeare 1
         id: setup-shakespeare-1
         uses: ./
