@@ -63,7 +63,7 @@ runs:
     - name: Install dependencies
       if: ${{ steps.info.outputs.bin-installed == 'false' }}
       env:
-        SETUPTOOLS_VERSION: "75.8.0"
+        SETUPTOOLS_VERSION: "80.9.0"
       run: |
         python -m pip install setuptools==$SETUPTOOLS_VERSION ${{ runner.os == 'Windows' && 'pyreadline3' || ''}}
       shell: sh
