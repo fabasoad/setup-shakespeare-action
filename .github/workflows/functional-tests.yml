@@ -25,6 +25,7 @@ jobs:
     name: Get 3 latest versions
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions: {}
     outputs:
       versions: ${{ steps.prepare-list.outputs.versions }}
     steps:
@@ -42,6 +43,8 @@ jobs:
     needs: [get-versions]
     runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -49,13 +52,17 @@ jobs:
         version: ${{ fromJSON(needs.get-versions.outputs.versions) }}
     steps:
       - name: Checkout ${{ github.repository }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: "false"
       - name: Setup shakespeare
         id: setup-shakespeare
         uses: ./
         with:
           version: "${{ matrix.version }}"
       - name: Test action completion
+        env:
+          STEP_SETUP_SHAKESPEARE_OUTPUT_INSTALLED: "${{ steps.setup-shakespeare.outputs.installed }}"
         run: |
           test_equal() {
             if [ "${2}" != "${3}" ]; then
@@ -64,7 +71,7 @@ jobs:
             fi
           }
           test_equal "shakespeare should be installed" \
-            "${{ steps.setup-shakespeare.outputs.installed }}" \
+            "${STEP_SETUP_SHAKESPEARE_OUTPUT_INSTALLED}" \
             "true"
           test_equal "Wrong execution output" \
             "$(shakespeare run hello-world.spl)" \
@@ -73,13 +80,17 @@ jobs:
     name: Test force
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
         force: ["true", "false"]
     steps:
       - name: Checkout ${{ github.repository }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: "false"
       - name: Setup shakespeare 1
         id: setup-shakespeare-1
         uses: ./
@@ -89,6 +100,9 @@ jobs:
         with:
           force: ${{ matrix.force }}
       - name: Test action completion
+        env:
+          STEP_SETUP_SHAKESPEARE_1_OUTPUT_INSTALLED: "${{ steps.setup-shakespeare-1.outputs.installed }}"
+          STEP_SETUP_SHAKESPEARE_2_OUTPUT_INSTALLED: "${{ steps.setup-shakespeare-2.outputs.installed }}"
         run: |
           test_equal() {
             if [ "${2}" != "${3}" ]; then
@@ -97,8 +111,8 @@ jobs:
             fi
           }
           test_equal "Wrong \"installed\" output from setup-shakespeare-1" \
-            "${{ steps.setup-shakespeare-1.outputs.installed }}" \
+            "${STEP_SETUP_SHAKESPEARE_1_OUTPUT_INSTALLED}" \
             "true"
           test_equal "Wrong \"installed\" output from setup-shakespeare-2" \
-            "${{ steps.setup-shakespeare-2.outputs.installed }}" \
+            "${STEP_SETUP_SHAKESPEARE_2_OUTPUT_INSTALLED}" \
             "${{ matrix.force }}"
