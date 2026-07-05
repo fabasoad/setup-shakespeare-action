@@ -63,9 +63,9 @@ runs:
     - name: Install dependencies
       if: ${{ steps.info.outputs.bin-installed == 'false' }}
       env:
-        SETUPTOOLS_VERSION: "80.9.0"
+        SETUPTOOLS_VERSION: "82.0.1"
       run: |
-        python -m pip install setuptools==$SETUPTOOLS_VERSION ${{ runner.os == 'Windows' && 'pyreadline3' || ''}}
+        python -m pip install setuptools==$SETUPTOOLS_VERSION ${{ case(runner.os == 'Windows', 'pyreadline3', '') }}
       shell: sh
 
     - name: Get latest release
@@ -81,12 +81,12 @@ runs:
       if: ${{ steps.info.outputs.bin-installed == 'false' }}
       id: install-shakespeare
       env:
-        VERSION: "${{ inputs.version == 'latest' && steps.latest-release.outputs.version || inputs.version }}"
+        VERSION: "${{ case(inputs.version == 'latest', steps.latest-release.outputs.version, inputs.version) }}"
       run: python -m pip install shakespearelang==${VERSION}
       shell: sh
 
     - name: Print version
       env:
-        VERSION: "${{ inputs.version == 'latest' && steps.latest-release.outputs.version || inputs.version }}"
+        VERSION: "${{ case(inputs.version == 'latest', steps.latest-release.outputs.version, inputs.version) }}"
       run: echo "shakespeare ${VERSION}"
       shell: sh
