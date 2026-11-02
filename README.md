@@ -8,6 +8,11 @@
 This action installs one of the Shakespeare programming language interpreters
 called [shakespearelang](https://pypi.org/project/shakespearelang/).
 
+It is installed from the
+[fabasoad/shakespearelang](https://github.com/fabasoad/shakespearelang) fork,
+because the versions published on PyPI only support Python versions that
+reached their end of life and are not available on GitHub runners anymore.
+
 ## Supported OS
 
 <!-- prettier-ignore-start -->
@@ -27,8 +32,9 @@ None.
 ```yaml
 - uses: fabasoad/setup-shakespeare-action@v1
   with:
-    # (Optional) shakespeare version. Defaults to the latest version.
-    version: "1.0.0"
+    # (Optional) Git ref (branch, tag or commit SHA) of the
+    # fabasoad/shakespearelang fork to install. Defaults to "main".
+    version: "main"
     # (Optional) If "false" skips installation if shakespeare is already installed.
     # If "true" installs shakespeare in any case. Defaults to "false".
     force: "false"
