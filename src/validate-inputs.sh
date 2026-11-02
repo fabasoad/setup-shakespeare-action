@@ -22,20 +22,20 @@ check_enum() {
   esac
 }
 
-# Validates value to be a valid semver string.
+# Validates value to be a valid git ref, i.e. a branch, tag or commit SHA.
 # Parameters:
 # 1. (Required) Param name to display it correctly in the error message for the
 #    users.
 # 2. (Required) Param value that will be validated.
 #
 # Usage examples:
-# check_semver "my-valid-semver-1" "1.2.3"
-# check_semver "my-valid-semver-1" "1.0.0rc1"
-# check_semver "my-valid-semver-3" "latest"
-# check_semver "my-invalid-semver" "1.2.3-rc1"
-check_semver() {
-  if ! echo "${2}" | grep -Eq '^(latest|[0-9]+\.[0-9]+\.[a-z0-9]+)$'; then
-    msg="\"${1}\" parameter is invalid. \"${2}\" is not a valid semver."
+# check_git_ref "my-valid-ref-1" "main"
+# check_git_ref "my-valid-ref-2" "v1.0.0"
+# check_git_ref "my-valid-ref-3" "feat/python-3.15"
+# check_git_ref "my-invalid-ref" "main; rm -rf /"
+check_git_ref() {
+  if ! echo "${2}" | grep -Eq '^[A-Za-z0-9][A-Za-z0-9._/-]*$'; then
+    msg="\"${1}\" parameter is invalid. \"${2}\" is not a valid git ref."
     echo "::error title=Invalid parameter::${msg}"
     exit 1
   fi
@@ -45,7 +45,7 @@ main() {
   input_version="${1}"
   input_force="${2}"
 
-  check_semver "version" "${input_version}"
+  check_git_ref "version" "${input_version}"
   check_enum "force" "${input_force}" "true,false"
 }
 
