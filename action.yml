@@ -3,8 +3,7 @@ name: "Setup Shakespeare"
 author: Yevhen Fabizhevskyi
 description: |
   This GitHub action installs one of the Shakespeare programming language
-  interpreters called shakespearelang. It is installed from the
-  fabasoad/shakespearelang fork that supports the latest Python versions.
+  interpreters called shakespearelang.
 branding:
   icon: italic
   color: yellow
