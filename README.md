@@ -30,7 +30,7 @@ None.
 ## Inputs
 
 ```yaml
-- uses: fabasoad/setup-shakespeare-action@v1
+- uses: fabasoad/setup-shakespeare-action@v2
   with:
     # (Optional) Git ref (branch, tag or commit SHA) of the
     # fabasoad/shakespearelang fork to install. Defaults to "main".
@@ -59,7 +59,7 @@ None.
 ```yaml
 steps:
   - uses: actions/checkout@v7
-  - uses: fabasoad/setup-shakespeare-action@v1
+  - uses: fabasoad/setup-shakespeare-action@v2
   - run: shakespeare run hello-world.spl
 ```
 
